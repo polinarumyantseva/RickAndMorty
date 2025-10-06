@@ -1,0 +1,17 @@
+.card-item {
+	width: 100%;
+	display: flex;
+	margin-bottom: 16px;
+	&-episode {
+		display: inline-block;
+		font-weight: 600;
+		width: 80px;
+	}
+	a:hover .card-item-name {
+		text-decoration: underline;
+	}
+	&-name {
+		color: #fff;
+		margin: 0;
+	}
+}

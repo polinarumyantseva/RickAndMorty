@@ -1,0 +1,28 @@
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.logo {
+	width: 250px;
+}
+
+.nav {
+	list-style: none;
+	display: flex;
+	gap: 90px;
+
+	&-link {
+		color: #fff;
+		font-size: 21px;
+		letter-spacing: 1.5px;
+		&:hover {
+			color: #fff;
+			text-shadow: 2px 2px 3px #fff;
+		}
+	}
+}
+:global .active {
+	text-shadow: 2px 2px 3px #bfde42;
+}
