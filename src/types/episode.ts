@@ -1,10 +1,7 @@
-export interface EpisodeShortProps {
+export interface EpisodeProps {
 	id: number;
 	name: string;
 	episode: string;
-}
-
-export interface EpisodeProps extends EpisodeShortProps {
 	air_date: string;
 	created: string;
 }
