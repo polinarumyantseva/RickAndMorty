@@ -1,5 +1,6 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context';
+import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
 
 interface PrivateLayoutProps {
 	children?: React.ReactNode;
@@ -13,5 +14,5 @@ export const PrivateLayout = ({ children }: PrivateLayoutProps) => {
 		return <Navigate to='/login' state={{ from: location.pathname }} replace />;
 	}
 
-	return children ? <>{children}</> : <Outlet />;
+	return <ErrorBoundary>{children ? <>{children}</> : <Outlet />}</ErrorBoundary>;
 };
