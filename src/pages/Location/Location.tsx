@@ -50,8 +50,16 @@ export const Location = () => {
 					</div>
 					{id && (
 						<div className={styles['links-block']}>
-							{Number(id) > 1 && <Link to={`/locations/${+id - 1}`}>Previous location</Link>}
-							{Number(id) && <Link to={`/locations/${+id + 1}`}>Next location</Link>}
+							{Number(id) > 1 && (
+								<Link to={`/locations/${+id - 1}`} className={styles['item-nav-link']}>
+									Previous location
+								</Link>
+							)}
+							{Number(id) && (
+								<Link to={`/locations/${+id + 1}`} className={styles['item-nav-link']}>
+									Next location
+								</Link>
+							)}
 						</div>
 					)}
 				</>

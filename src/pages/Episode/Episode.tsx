@@ -49,8 +49,16 @@ export const Episode = () => {
 					</div>
 					{id && (
 						<div className={styles['links-block']}>
-							{Number(id) > 1 && <Link to={`/episodes/${+id - 1}`}>Previous episode</Link>}
-							{Number(id) && <Link to={`/episodes/${+id + 1}`}>Next episode</Link>}
+							{Number(id) > 1 && (
+								<Link to={`/episodes/${+id - 1}`} className={styles['item-nav-link']}>
+									Previous episode
+								</Link>
+							)}
+							{Number(id) && (
+								<Link to={`/episodes/${+id + 1}`} className={styles['item-nav-link']}>
+									Next episode
+								</Link>
+							)}
 						</div>
 					)}
 				</>

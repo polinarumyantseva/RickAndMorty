@@ -1,45 +1,35 @@
-import { useRef, useState, type FormEvent } from 'react';
-import { Button, Input, Logo } from '../../components';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Button, TextInput } from '@mantine/core';
+import '@mantine/core/styles/Input.css';
+import { useForm } from '@mantine/form';
+import { Logo } from '../../components';
 import type { UserProps } from '../../types';
 import { useAuth } from '../../context';
-import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './signin.module.scss';
 
 export const Signin = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const auth = useAuth();
-	const formRef = useRef<HTMLFormElement>(null);
-	const [formData, setFormData] = useState<UserProps>({
-		email: '',
-		password: '',
+
+	const form = useForm<UserProps>({
+		mode: 'uncontrolled',
+		initialValues: {
+			email: '',
+			password: '',
+		},
+
+		validate: {
+			email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+			password: (value) => (value.length < 6 ? 'Password must be at least 6 characters' : null),
+		},
 	});
 
-	const handleInputChange = (name: keyof UserProps) => {
-		return (value: string) => {
-			setFormData((prevState) => {
-				return {
-					...prevState,
-					[name]: value,
-				};
-			});
-		};
-	};
-
-	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-		auth?.signin(formData, () => {
+	const handleSubmit = (values: typeof form.values) => {
+		auth?.signin(values, () => {
 			navigate(location.state?.from || '/', {
 				replace: true,
 			});
-		});
-		formRef.current?.reset();
-	};
-
-	const handleReset = () => {
-		setFormData({
-			email: '',
-			password: '',
 		});
 	};
 
@@ -48,31 +38,38 @@ export const Signin = () => {
 			<Logo />
 			<div className={styles['form-inner']}>
 				<h1>Login</h1>
-				<form onSubmit={handleSubmit} onReset={handleReset} ref={formRef}>
-					<Input
+				<form onSubmit={form.onSubmit(handleSubmit)}>
+					<TextInput
+						classNames={{
+							root: styles['input-container'],
+							input: styles.input,
+							label: styles.label,
+						}}
+						size='md'
+						withAsterisk
 						label='Email'
-						description='Пример: test@test.ru'
-						inputType='email'
-						name='email'
-						placeholder='Введите email'
-						required
-						value={formData.email}
-						onChange={handleInputChange('email')}
+						placeholder='your@email.com'
+						key={form.key('email')}
+						{...form.getInputProps('email')}
 					/>
-					<Input
-						label='Пароль'
-						inputType='password'
-						required
-						name='password'
-						placeholder='Введите пароль'
-						value={formData.password}
-						onChange={handleInputChange('password')}
+					<TextInput
+						classNames={{
+							root: styles['input-container'],
+							input: styles.input,
+							label: styles.label,
+						}}
+						size='md'
+						type='password'
+						withAsterisk
+						label='Password'
+						placeholder='Password'
+						key={form.key('password')}
+						{...form.getInputProps('password')}
 					/>
-					<div className={styles['buttons-container']}>
-						<Button type='submit' buttonType='primary'>
-							Войти
-						</Button>
-					</div>
+
+					<Button type='submit' variant='filled' size='md' color='yellow'>
+						Войти
+					</Button>
 				</form>
 			</div>
 		</div>
