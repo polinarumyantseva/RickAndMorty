@@ -1,97 +1,102 @@
 import { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { MantineProvider } from '@mantine/core';
+import { resolver, theme } from './theme';
 import { Layout, PrivateLayout } from './components';
 import { AuthProvider } from './context';
 import { Lazy } from './utils';
 import './App.css';
+import '@mantine/core/styles.css';
 
 export const App = () => {
 	return (
-		<AuthProvider>
-			<Routes>
-				<Route path='/' element={<Layout />}>
-					<Route
-						index
-						element={
-							<Suspense fallback='Loading...'>
-								<Lazy.Home />
-							</Suspense>
-						}
-					/>
-					<Route element={<PrivateLayout />}>
-						<Route path='/characters'>
-							<Route
-								index
-								element={
-									<Suspense fallback='Loading...'>
-										<Lazy.CharactersList />
-									</Suspense>
-								}
-							/>
-							<Route
-								path=':id'
-								element={
-									<Suspense fallback='Loading...'>
-										<Lazy.Character />
-									</Suspense>
-								}
-							/>
+		<MantineProvider theme={theme} cssVariablesResolver={resolver} defaultColorScheme='dark'>
+			<AuthProvider>
+				<Routes>
+					<Route path='/' element={<Layout />}>
+						<Route
+							index
+							element={
+								<Suspense fallback='Loading...'>
+									<Lazy.Home />
+								</Suspense>
+							}
+						/>
+						<Route element={<PrivateLayout />}>
+							<Route path='/characters'>
+								<Route
+									index
+									element={
+										<Suspense fallback='Loading...'>
+											<Lazy.CharactersList />
+										</Suspense>
+									}
+								/>
+								<Route
+									path=':id'
+									element={
+										<Suspense fallback='Loading...'>
+											<Lazy.Character />
+										</Suspense>
+									}
+								/>
+							</Route>
+							<Route path='/locations'>
+								<Route
+									index
+									element={
+										<Suspense fallback='Loading...'>
+											<Lazy.LocationList />
+										</Suspense>
+									}
+								/>
+								<Route
+									path=':id'
+									element={
+										<Suspense fallback='Loading...'>
+											<Lazy.Location />
+										</Suspense>
+									}
+								/>
+							</Route>
+							<Route path='/episodes'>
+								<Route
+									index
+									element={
+										<Suspense fallback='Loading...'>
+											<Lazy.EpisodeList />
+										</Suspense>
+									}
+								/>
+								<Route
+									path=':id'
+									element={
+										<Suspense fallback='Loading...'>
+											<Lazy.Episode />
+										</Suspense>
+									}
+								/>
+							</Route>
 						</Route>
-						<Route path='/locations'>
-							<Route
-								index
-								element={
-									<Suspense fallback='Loading...'>
-										<Lazy.LocationList />
-									</Suspense>
-								}
-							/>
-							<Route
-								path=':id'
-								element={
-									<Suspense fallback='Loading...'>
-										<Lazy.Location />
-									</Suspense>
-								}
-							/>
-						</Route>
-						<Route path='/episodes'>
-							<Route
-								index
-								element={
-									<Suspense fallback='Loading...'>
-										<Lazy.EpisodeList />
-									</Suspense>
-								}
-							/>
-							<Route
-								path=':id'
-								element={
-									<Suspense fallback='Loading...'>
-										<Lazy.Episode />
-									</Suspense>
-								}
-							/>
-						</Route>
+						<Route
+							path='*'
+							element={
+								<Suspense fallback='Loading...'>
+									<Lazy.NotFound />
+								</Suspense>
+							}
+						/>
 					</Route>
 					<Route
-						path='*'
+						path='/login'
 						element={
 							<Suspense fallback='Loading...'>
-								<Lazy.NotFound />
+								<Lazy.Signin />
 							</Suspense>
 						}
 					/>
-				</Route>
-				<Route
-					path='/login'
-					element={
-						<Suspense fallback='Loading...'>
-							<Lazy.Signin />
-						</Suspense>
-					}
-				/>
-			</Routes>
-		</AuthProvider>
+				</Routes>
+			</AuthProvider>
+		</MantineProvider>
 	);
 };

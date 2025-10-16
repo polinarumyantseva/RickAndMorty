@@ -14,9 +14,19 @@
 	border-radius: 10px;
 	color: #333;
 	box-shadow: 0 0 30px 0 hsl(0deg 0% 100% / 25%);
+	border: 1px solid #ddd;
 }
 
 .buttons-container {
 	display: flex;
 	gap: 20px;
+}
+
+.input-container {
+	margin-bottom: 16px;
+}
+.input {
+	margin-top: 8px;
+	background-color: #fff;
+	color: #333;
 }
