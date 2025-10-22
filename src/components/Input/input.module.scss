@@ -1,0 +1,90 @@
+.input-container {
+	margin-bottom: 16px;
+	text-align: left;
+	&:global(.small) {
+		.label,
+		.input-error {
+			font-size: 14px;
+		}
+		.input-description {
+			font-size: 12px;
+		}
+		.input {
+			height: 35px;
+		}
+	}
+	&:global(.large) {
+		.label,
+		.input-error {
+			font-size: 18px;
+		}
+		.input-description {
+			font-size: 16px;
+		}
+		.input {
+			height: 55px;
+		}
+	}
+}
+
+.input {
+	height: 45px;
+	width: 100%;
+	font-size: 16px;
+	border: 1px solid #939191;
+	background: #fff;
+	border-radius: 8px;
+	padding: 10px;
+	margin-top: 8px;
+	color: #000;
+
+	&:global(.unstyled) {
+		border: none;
+		padding-left: 0;
+	}
+	&:global(.filled) {
+		background: #eee;
+		border-color: #eee;
+	}
+	&:global(.rounded) {
+		border-radius: 30px;
+	}
+	&:global(.square) {
+		border-radius: 0;
+	}
+
+	&-block {
+		position: relative;
+	}
+	&-with-icon {
+		padding-left: 32px;
+	}
+	&-icon {
+		position: absolute;
+		left: 8px;
+		top: 18px;
+		color: #868e96;
+	}
+
+	&-description {
+		margin: 2px 0 0;
+		color: #999;
+		font-size: 14px;
+	}
+	&-error {
+		color: #ff2c2c;
+		font-size: 18px;
+		margin: 4px 0 0;
+	}
+}
+
+.label {
+	display: flex;
+	width: 100%;
+
+	&.required:after {
+		content: '*';
+		margin-left: 4px;
+		color: #cc0000;
+	}
+}
