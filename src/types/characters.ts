@@ -1,10 +1,7 @@
-export interface CharactersShortProps {
+export interface CharactersProps {
 	id: number;
 	name: string;
 	image: string;
-}
-
-export interface CharactersProps extends CharactersShortProps {
 	status: string;
 	species: string;
 	type: string;

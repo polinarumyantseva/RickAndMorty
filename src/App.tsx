@@ -1,17 +1,8 @@
+import { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import {
-	Home,
-	CharactersList,
-	Character,
-	NotFound,
-	LocationList,
-	Location,
-	EpisodeList,
-	Episode,
-	Signin,
-} from './pages';
 import { Layout, PrivateLayout } from './components';
 import { AuthProvider } from './context';
+import { Lazy } from './utils';
 import './App.css';
 
 export const App = () => {
@@ -19,25 +10,87 @@ export const App = () => {
 		<AuthProvider>
 			<Routes>
 				<Route path='/' element={<Layout />}>
-					<Route index element={<Home />} />
+					<Route
+						index
+						element={
+							<Suspense fallback='Loading...'>
+								<Lazy.Home />
+							</Suspense>
+						}
+					/>
 					<Route element={<PrivateLayout />}>
 						<Route path='/characters'>
-							<Route index element={<CharactersList />} />
-							<Route path=':id' element={<Character />} />
+							<Route
+								index
+								element={
+									<Suspense fallback='Loading...'>
+										<Lazy.CharactersList />
+									</Suspense>
+								}
+							/>
+							<Route
+								path=':id'
+								element={
+									<Suspense fallback='Loading...'>
+										<Lazy.Character />
+									</Suspense>
+								}
+							/>
 						</Route>
 						<Route path='/locations'>
-							<Route index element={<LocationList />} />
-							<Route path=':id' element={<Location />} />
+							<Route
+								index
+								element={
+									<Suspense fallback='Loading...'>
+										<Lazy.LocationList />
+									</Suspense>
+								}
+							/>
+							<Route
+								path=':id'
+								element={
+									<Suspense fallback='Loading...'>
+										<Lazy.Location />
+									</Suspense>
+								}
+							/>
 						</Route>
 						<Route path='/episodes'>
-							<Route index element={<EpisodeList />} />
-							<Route path=':id' element={<Episode />} />
+							<Route
+								index
+								element={
+									<Suspense fallback='Loading...'>
+										<Lazy.EpisodeList />
+									</Suspense>
+								}
+							/>
+							<Route
+								path=':id'
+								element={
+									<Suspense fallback='Loading...'>
+										<Lazy.Episode />
+									</Suspense>
+								}
+							/>
 						</Route>
 					</Route>
-
-					<Route path='*' element={<NotFound />} />
+					<Route
+						path='*'
+						element={
+							<Suspense fallback='Loading...'>
+								<Lazy.NotFound />
+							</Suspense>
+						}
+					/>
 				</Route>
-				<Route path='/login' element={<Signin />} />
+				<Route
+					path='/login'
+					element={
+						<Suspense fallback='Loading...'>
+							<Lazy.Signin />
+						</Suspense>
+					}
+				/>
 			</Routes>
 		</AuthProvider>
 	);
