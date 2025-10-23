@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Loading } from '../../components';
 import type { EpisodeProps } from '../../types';
 import styles from './episode.module.scss';
 
@@ -27,34 +28,30 @@ export const Episode = () => {
 
 	return (
 		<div className={styles['character']}>
-			{isLoading ? (
-				<div>Loading...</div>
-			) : (
-				<>
-					<h1>
-						<span className={styles['episode']}>{episodeItem?.episode}</span>
-						{episodeItem?.name}
-					</h1>
-					<div className={styles['item-desc']}>
+			<Loading isLoading={isLoading}>
+				<h1>
+					<span className={styles['episode']}>{episodeItem?.episode}</span>
+					{episodeItem?.name}
+				</h1>
+				<div className={styles['item-desc']}>
+					<p className={styles['item-desc-prop']}>
+						<span className={styles['item-desc-label']}>Air date:</span>
+						{episodeItem?.air_date}
+					</p>
+					{episodeItem?.created && (
 						<p className={styles['item-desc-prop']}>
-							<span className={styles['item-desc-label']}>Air date:</span>
-							{episodeItem?.air_date}
+							<span className={styles['item-desc-label']}>Created:</span>
+							{new Date(episodeItem.created).toLocaleDateString()}
 						</p>
-						{episodeItem?.created && (
-							<p className={styles['item-desc-prop']}>
-								<span className={styles['item-desc-label']}>Created:</span>
-								{new Date(episodeItem.created).toLocaleDateString()}
-							</p>
-						)}
-					</div>
-					{id && (
-						<div className={styles['links-block']}>
-							{Number(id) > 1 && <Link to={`/episodes/${+id - 1}`}>Previous episode</Link>}
-							{Number(id) && <Link to={`/episodes/${+id + 1}`}>Next episode</Link>}
-						</div>
 					)}
-				</>
-			)}
+				</div>
+				{id && (
+					<div className={styles['links-block']}>
+						{Number(id) > 1 && <Link to={`/episodes/${+id - 1}`}>Previous episode</Link>}
+						{Number(id) && <Link to={`/episodes/${+id + 1}`}>Next episode</Link>}
+					</div>
+				)}
+			</Loading>
 		</div>
 	);
 };

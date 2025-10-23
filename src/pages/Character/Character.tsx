@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Loading } from '../../components';
 import type { CharactersProps } from '../../types';
 import styles from './character.module.scss';
 
@@ -27,40 +28,36 @@ export const Character = () => {
 
 	return (
 		<div className={styles['character']}>
-			{isLoading ? (
-				<div>Loading...</div>
-			) : (
-				<>
-					<h1>{characterItem?.name}</h1>
-					<div className={styles['item']}>
-						<img src={characterItem?.image} alt={characterItem?.name} />
-						<div className={styles['item-desc']}>
+			<Loading isLoading={isLoading}>
+				<h1>{characterItem?.name}</h1>
+				<div className={styles['item']}>
+					<img src={characterItem?.image} alt={characterItem?.name} />
+					<div className={styles['item-desc']}>
+						<p className={styles['item-desc-prop']}>
+							<span className={styles['item-desc-label']}>Status:</span>
+							{characterItem?.status}
+						</p>
+						<p className={styles['item-desc-prop']}>
+							<span className={styles['item-desc-label']}>Species:</span>
+							{characterItem?.species}
+						</p>
+						<p className={styles['item-desc-prop']}>
+							<span className={styles['item-desc-label']}>Type:</span>
+							{characterItem?.type ? characterItem?.type : 'unknown'}
+						</p>
+						<p className={styles['item-desc-prop']}>
+							<span className={styles['item-desc-label']}>Gender:</span>
+							{characterItem?.gender}
+						</p>
+						{characterItem?.created && (
 							<p className={styles['item-desc-prop']}>
-								<span className={styles['item-desc-label']}>Status:</span>
-								{characterItem?.status}
+								<span className={styles['item-desc-label']}>Created:</span>
+								{new Date(characterItem.created).toLocaleDateString()}
 							</p>
-							<p className={styles['item-desc-prop']}>
-								<span className={styles['item-desc-label']}>Species:</span>
-								{characterItem?.species}
-							</p>
-							<p className={styles['item-desc-prop']}>
-								<span className={styles['item-desc-label']}>Type:</span>
-								{characterItem?.type ? characterItem?.type : 'unknown'}
-							</p>
-							<p className={styles['item-desc-prop']}>
-								<span className={styles['item-desc-label']}>Gender:</span>
-								{characterItem?.gender}
-							</p>
-							{characterItem?.created && (
-								<p className={styles['item-desc-prop']}>
-									<span className={styles['item-desc-label']}>Created:</span>
-									{new Date(characterItem.created).toLocaleDateString()}
-								</p>
-							)}
-						</div>
+						)}
 					</div>
-				</>
-			)}
+				</div>
+			</Loading>
 		</div>
 	);
 };

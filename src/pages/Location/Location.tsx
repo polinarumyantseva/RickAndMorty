@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Loading } from '../../components';
 import type { LocationProps } from '../../types';
 import styles from './location.module.scss';
 
@@ -27,35 +28,31 @@ export const Location = () => {
 
 	return (
 		<div className={styles['character']}>
-			{isLoading ? (
-				<div>Loading...</div>
-			) : (
-				<>
-					<h1>{locationItem?.name}</h1>
-					<div className={styles['item-desc']}>
+			<Loading isLoading={isLoading}>
+				<h1>{locationItem?.name}</h1>
+				<div className={styles['item-desc']}>
+					<p className={styles['item-desc-prop']}>
+						<span className={styles['item-desc-label']}>Type:</span>
+						{locationItem?.type}
+					</p>
+					<p className={styles['item-desc-prop']}>
+						<span className={styles['item-desc-label']}>Dimension:</span>
+						{locationItem?.dimension}
+					</p>
+					{locationItem?.created && (
 						<p className={styles['item-desc-prop']}>
-							<span className={styles['item-desc-label']}>Type:</span>
-							{locationItem?.type}
+							<span className={styles['item-desc-label']}>Created:</span>
+							{new Date(locationItem.created).toLocaleDateString()}
 						</p>
-						<p className={styles['item-desc-prop']}>
-							<span className={styles['item-desc-label']}>Dimension:</span>
-							{locationItem?.dimension}
-						</p>
-						{locationItem?.created && (
-							<p className={styles['item-desc-prop']}>
-								<span className={styles['item-desc-label']}>Created:</span>
-								{new Date(locationItem.created).toLocaleDateString()}
-							</p>
-						)}
-					</div>
-					{id && (
-						<div className={styles['links-block']}>
-							{Number(id) > 1 && <Link to={`/locations/${+id - 1}`}>Previous location</Link>}
-							{Number(id) && <Link to={`/locations/${+id + 1}`}>Next location</Link>}
-						</div>
 					)}
-				</>
-			)}
+				</div>
+				{id && (
+					<div className={styles['links-block']}>
+						{Number(id) > 1 && <Link to={`/locations/${+id - 1}`}>Previous location</Link>}
+						{Number(id) && <Link to={`/locations/${+id + 1}`}>Next location</Link>}
+					</div>
+				)}
+			</Loading>
 		</div>
 	);
 };
