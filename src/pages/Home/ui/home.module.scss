@@ -1,8 +1,23 @@
 .main-wrapper {
 	display: flex;
 	gap: 50px;
+	@media (max-width: 768px) {
+		flex-direction: column;
+		width: 100%;
+	}
 
 	.home-img {
-		width: 330px;
+		max-width: 40%;
+		height: 100%;
+		flex-shrink: 0;
+		@media (max-width: 480px) {
+			max-width: 100%;
+		}
+	}
+}
+
+.title {
+	@media (max-width: 768px) {
+		font-size: 22px;
 	}
 }

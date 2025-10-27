@@ -4,7 +4,7 @@ import styles from './home.module.scss';
 export const Home = () => {
 	return (
 		<div className={styles.container}>
-			<h1>Мультсериал «Рик и Морти» — праздник для поклонников нестандартного юмора</h1>
+			<h1 className={styles.title}>Мультсериал «Рик и Морти» — праздник для поклонников нестандартного юмора</h1>
 			<div className={styles['main-wrapper']}>
 				<div>
 					<p>

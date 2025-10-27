@@ -6,10 +6,13 @@ import { AuthProvider } from './Providers/AuthProvider';
 import { Lazy } from '../shared/utils';
 import { Layout } from '@/widgets/layout';
 import { PrivateLayout } from '@/widgets/privateLayout';
+import { useServiceWorker } from '@/shared/hooks';
 import './App.css';
 import '@mantine/core/styles.css';
 
 export const App = () => {
+	useServiceWorker();
+
 	return (
 		<MantineProvider theme={theme} cssVariablesResolver={resolver} defaultColorScheme='dark'>
 			<AuthProvider>
