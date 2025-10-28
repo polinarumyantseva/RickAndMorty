@@ -3,8 +3,13 @@
 	"compilerOptions": {
 		"target": "es2022",
 		"module": "esnext",
-		"moduleResolution": "node",
+		"moduleResolution": "bundler",
 		"jsx": "react-jsx",
+		"noEmit": true,
+		"resolveJsonModule": true,
+		"allowSyntheticDefaultImports": true,
+		"skipLibCheck": true,
+		"outDir": "./dist",
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["src/*"]
