@@ -2,18 +2,33 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	@media (max-width: 700px) {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	@media (max-width: 480px) {
+		position: relative;
+	}
 }
 
 .nav {
 	list-style: none;
 	display: flex;
 	gap: 90px;
+	padding: 0;
+	margin-right: 20px;
+	@media (max-width: 768px) {
+		gap: 20px;
+	}
 
 	&-link {
 		font-size: 21px;
 		letter-spacing: 1.5px;
 		&:hover {
 			text-shadow: 2px 2px 3px #fff;
+		}
+		@media (max-width: 480px) {
+			font-size: 18px;
 		}
 	}
 }
@@ -24,4 +39,9 @@
 .button-container {
 	display: flex;
 	gap: 24px;
+	@media (max-width: 480px) {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
 }
